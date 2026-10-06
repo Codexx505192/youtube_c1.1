@@ -1,6 +1,13 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## YoutubeClone
+## функции приложения:
+## 1: Добавление видео
+## 2: Переход на главную и просмотр всех добавленных видео
+## 3:навигация
+## 4: Обработка 404 ошибки (страница не найдена)
+## 5: Работа с метаданными
+## 6: авторизация
 
 First, run the development server:
 
