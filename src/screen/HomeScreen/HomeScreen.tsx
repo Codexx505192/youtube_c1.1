@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import  Image from 'next/image'
 import Link from 'next/link'
 import s from './HomeScree.module.css'
-import { AllVideosDto } from '@/shared/types/typesFromBackend'
+import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 
 interface FormValues {
   videoUrl: string
@@ -12,7 +12,7 @@ interface FormValues {
 
 export const HomeScreen = () => {
   const [isLoading, setIsLoading] = useState(true)
-  const [data, setData] = useState<AllVideosDto['data'] | null>(null)
+  const [data, setData] = useState<GetAllVideosDto['data'] | null>(null)
 
   const {
     register,
@@ -30,7 +30,7 @@ export const HomeScreen = () => {
           method: 'GET',
         })
 
-        const response = await dataFromServer.json() as AllVideosDto
+        const response = await dataFromServer.json() as GetAllVideosDto
         
         setData(response.data)
       } catch (error) {

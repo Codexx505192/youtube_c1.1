@@ -12,7 +12,7 @@ export const VideoScreen = ({ videoId }: VideoScreenProps) => {
   useEffect(() => {
       (async () => {
         try {
-          const dataFromServer = await fetch(`/api/videos?video=${videoId}`)
+          const dataFromServer = await fetch(`/api/videos?videoId=${videoId}`)
   
           const response = await dataFromServer.json() as VideoDto
           console.log('response', response)

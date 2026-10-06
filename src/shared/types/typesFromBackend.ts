@@ -6,7 +6,7 @@ export type VideoDto = {
 }
 
 
-export type AllVideosDto = {
+export type GetGetAllVideosDto = {
     ok: boolean
     data: VideoDto[]
 }

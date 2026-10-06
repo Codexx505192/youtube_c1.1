@@ -1,4 +1,3 @@
-import { AllVideosDto } from "@/shared/types/typesFromBackend"
 import { error } from "console"
 import { number, string } from "zod"
 type OEmbedVideoInfo = {
@@ -38,6 +37,28 @@ const urlObject = new URL(request.url)
 const videoId = urlObject.searchParams.get('videoId')
 console.log('videoId', videoId)
 
+if(videoId){
+  try{
+const rawResult = await fetch(
+        `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
+      )
+      const videoInfo = await rawResult.json() as OEmbedVideoInfo
+
+      const result ={
+      videoId, 
+      title: videoInfo.title,
+      author_name: videoInfo.author_name,
+      author_url: videoInfo.author_url,
+      }
+
+      return  Response.json({ok: true, data: result})
+    }
+    catch(error){
+      console.log(error)
+      return Response.json({ok: false, data: null}, { status: 500 })
+    }
+}
+
 try{
     const promises =  [...videosData].map(async(videoId) => {
       const rawResult = await fetch(
@@ -57,8 +78,8 @@ try{
     return Response.json({ok: true, data: result})
   }
   catch(error){
+    console.log(error)
     return Response.json({ok: false, data: []}, { status: 500 })
-
   }
 }
 
