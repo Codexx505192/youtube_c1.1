@@ -43,6 +43,7 @@ const rawResult = await fetch(
         `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
       )
       const videoInfo = await rawResult.json() as OEmbedVideoInfo
+      console.log('videoInfo', videoInfo)
 
       const result ={
       videoId, 

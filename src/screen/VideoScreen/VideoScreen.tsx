@@ -1,32 +1,44 @@
 'use client'
 import Link from 'next/link'
 import s from './VideoScreen.module.css'
-import { VideoDto } from '@/shared/types/typesFromBackend'
-import { useEffect } from 'react'
+import { GetOneVideoDto, VideoDto } from '@/shared/types/typesFromBackend'
+import { useEffect, useState } from 'react'
+import { da } from 'zod/locales'
 
 type VideoScreenProps = {
     videoId: string
 }
 
 export const VideoScreen = ({ videoId }: VideoScreenProps) => {
+const [isLoading, setIsLoading] = useState(true)
+const [data, setData] = useState<GetOneVideoDto['data'] | null>(null)
+
   useEffect(() => {
       (async () => {
         try {
           const dataFromServer = await fetch(`/api/videos?videoId=${videoId}`)
   
-          const response = await dataFromServer.json() as VideoDto
+          const response = await dataFromServer.json() as GetOneVideoDto
           console.log('response', response)
           
-          // setData(response.data)
+          if(response.data){
+            setData(response.data)
+          }
         } catch (error) {
           
           console.error('Ошибка при загрузке видео:', error)
         } finally {
-          // setIsLoading(false)
+          setIsLoading(false)
         }
       })()
 
     }, [videoId])
+
+    if (isLoading) {
+    return <div>загрузка...</div>
+  }
+
+  if(!data) return null
 
   return (
     <div className={s.container}>
@@ -41,16 +53,16 @@ export const VideoScreen = ({ videoId }: VideoScreenProps) => {
         allowFullScreen
       ></iframe>
        
-       <b className={s.videoTitle}>название ролика</b>
+       <b className={s.videoTitle}>{data.title}</b>
 
        <div className={s.videoInfoContainer}>
 
             <div className={s.chanelImage}>
-            <Link href="/2" className={s.hiddenText}>название канала</Link>
+            <Link href={`/profile/${data.author_url}`} className={s.hiddenText}>{data.author_name}</Link>
             </div>
 
-              <Link href="/4" className={s.chanelNameLink}>
-              название канала
+              <Link href={`/profile/${data.author_url}`} className={s.chanelNameLink}>
+              {data.author_name}
               </Link>
             </div> 
     </div>
