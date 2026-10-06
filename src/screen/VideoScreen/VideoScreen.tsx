@@ -1,13 +1,32 @@
 'use client'
 import Link from 'next/link'
 import s from './VideoScreen.module.css'
+import { VideoDto } from '@/shared/types/typesFromBackend'
+import { useEffect } from 'react'
 
 type VideoScreenProps = {
     videoId: string
 }
 
 export const VideoScreen = ({ videoId }: VideoScreenProps) => {
+  useEffect(() => {
+      (async () => {
+        try {
+          const dataFromServer = await fetch(`/api/videos?video=${videoId}`)
   
+          const response = await dataFromServer.json() as VideoDto
+          console.log('response', response)
+          
+          // setData(response.data)
+        } catch (error) {
+          
+          console.error('Ошибка при загрузке видео:', error)
+        } finally {
+          // setIsLoading(false)
+        }
+      })()
+
+    }, [videoId])
 
   return (
     <div className={s.container}>
@@ -23,7 +42,6 @@ export const VideoScreen = ({ videoId }: VideoScreenProps) => {
       ></iframe>
        
        <b className={s.videoTitle}>название ролика</b>
-              
 
        <div className={s.videoInfoContainer}>
 
