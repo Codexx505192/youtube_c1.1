@@ -43,13 +43,16 @@ const rawResult = await fetch(
         `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
       )
       const videoInfo = await rawResult.json() as OEmbedVideoInfo
-      console.log('videoInfo', videoInfo)
+      // console.log('videoInfo', videoInfo)
+
+      const authoUrl = videoInfo.author_url.split('/').at(-1)
+      console.log('authoUrl', authoUrl)
 
       const result ={
       videoId, 
+      authoUrl,
       title: videoInfo.title,
       author_name: videoInfo.author_name,
-      author_url: videoInfo.author_url,
       }
 
       return  Response.json({ok: true, data: result})
@@ -66,13 +69,14 @@ try{
         `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
       )
       const videoInfo = await rawResult.json() as OEmbedVideoInfo
+      const authorUrl = videoInfo.author_url.split('/').at(-1)
 
       return{
       videoId, 
+      authorUrl,
       title: videoInfo.title,
-      author_name: videoInfo.author_name,
-      author_url: videoInfo.author_url,
-      }
+      authorName: videoInfo.author_name,
+    }
     })
 
     const result = await Promise.all(promises)
@@ -88,7 +92,8 @@ export async function POST(request: Request) {
     const data = await request.json()
     
     if(videosData.has(data.videoId)) {
-        return Response.json({ok: false, error: 'Видео ранее уже было добавлено'}, {status: 400})
+        return Response.json({ok: false, error: 'Видео ранее уже было добавлено'}, 
+        {status: 400})
     }
 
     videosData.add(data.videoId)

@@ -1,8 +1,8 @@
 export type VideoDto = {
     videoId: string
     title: string
-    author_name: string
-    author_url: string
+    authorName: string
+    authorUrl: string
 }
 
 export type GetOneVideoDto = {

@@ -16,8 +16,9 @@ console.log('profileId', profileId)
     return(
         <section>
             <div className="container">
-                <h1>
-                    ProfilePage: {profileId}
+                <h1 className="profile_text">
+                    ProfilePage: {profileId} <br />
+                    beta
                 </h1>
             </div>
         </section>

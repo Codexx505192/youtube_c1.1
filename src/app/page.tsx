@@ -1,9 +1,22 @@
 import { HomeScreen } from "@/screen/HomeScreen";
+import { GetAllVideosDto } from "@/shared/types/typesFromBackend";
 
-export default function Home() {
-  return (
+export default async function Home() {
+try{
+const dataFromServer = await fetch('http://localhost:3000/api/videos', {
+method: 'GET',
+})
+ 
+const response = await dataFromServer.json() as GetAllVideosDto
+ return (
     <>
-    <HomeScreen/>
+    <HomeScreen data={response.data}/>
     </>
   );
+}
+catch(error){
+  console.error(error)
+return <div>Что-то Пошло не так</div>
+}
+
 }

@@ -10,10 +10,15 @@ interface FormValues {
   videoUrl: string
 }
 
-export const HomeScreen = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [data, setData] = useState<GetAllVideosDto['data'] | null>(null)
+type HomeScreenProps = {
+  data: GetAllVideosDto['data']
+}
 
+export const HomeScreen = ({data}: HomeScreenProps) => {
+
+  // if (isLoading) {
+  //   return <div>загрузка...</div>
+  // }
   const {
     register,
     handleSubmit,
@@ -21,50 +26,7 @@ export const HomeScreen = () => {
     formState: { errors },
   } = useForm<FormValues>()
 
-  const hasVideoUrlInputError = Boolean(errors.videoUrl)
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const dataFromServer = await fetch('/api/videos', {
-          method: 'GET',
-        })
-
-        const response = await dataFromServer.json() as GetAllVideosDto
-        
-        setData(response.data)
-      } catch (error) {
-        
-        console.error('Ошибка при загрузке видео:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    })()
-  }, [])
-
-  const onSubmit = async (formData: FormValues) => {
-    try {
-      const response = await fetch('/api/videos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ videoUrl: formData.videoUrl }),
-      })
-
-      if (response.ok) {
-        reset()
-        const updatedData = await fetch('/api/videos').then((res) => res.json())
-        setData(updatedData)
-      }
-    } catch (error) {
-      console.error('Ошибка при отправке формы:', error)
-    }
-  }
-
-  if (isLoading) {
-    return <div>загрузка...</div>
-  }
 
   return (
     <div className={s.container}>
@@ -73,8 +35,8 @@ export const HomeScreen = () => {
           <div className={s.videoBlock} key={videoInfo.videoId}>
             <Link href={`/video/${videoInfo.videoId}`} className={s.videoPreview}>
             <Image 
-            width="325"
-            height="223"
+            unoptimized
+            fill
             src={`https://img.youtube.com/vi/${videoInfo.videoId}/hqdefault.jpg`} 
             alt="видео с ютуб"
             className={s.vodeoImg}
@@ -84,8 +46,8 @@ export const HomeScreen = () => {
             <div className={s.videoInfoContainer}>
 
             <div className={s.chanelImage}>
-            <Link href={`/profile/${videoInfo.author_url}`} className={s.hiddenText}>
-            {videoInfo.author_name}
+            <Link href={`/profile/${videoInfo.authorUrl}`} className={s.hiddenText}>
+            {videoInfo.authorName}
             </Link>
             </div>
 
@@ -94,8 +56,8 @@ export const HomeScreen = () => {
               <b>{videoInfo.title}</b>
               </Link>
 
-              <Link href={`/profile/${videoInfo.author_url}`} className={s.chanelNameLink}>
-              {videoInfo.author_name}
+              <Link href={`/profile/${videoInfo.authorUrl}`} className={s.chanelNameLink}>
+              {videoInfo.authorName}
               </Link>
             </div>
 

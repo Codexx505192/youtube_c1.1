@@ -91,15 +91,27 @@ border-radius: 14px;
 
 
 @media (max-width: 992px) {
-    
+    .videoTitle{
+    font-size: 15px;
+    }
 }
 
 
 @media (max-width: 768px) {
-    
+    .videoTitle {
+    font-size: 13px;
+}
 }
 
 
 @media (max-width: 576px) {
-    
+    .videoTitle {
+    font-size: 11px;
+}
+}
+
+@media (max-width: 375px) {
+    .videoTitle {
+    font-size: 11px;
+}
 }

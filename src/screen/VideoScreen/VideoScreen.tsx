@@ -3,7 +3,7 @@ import Link from 'next/link'
 import s from './VideoScreen.module.css'
 import { GetOneVideoDto, VideoDto } from '@/shared/types/typesFromBackend'
 import { useEffect, useState } from 'react'
-import { da } from 'zod/locales'
+
 
 type VideoScreenProps = {
     videoId: string
@@ -58,11 +58,13 @@ const [data, setData] = useState<GetOneVideoDto['data'] | null>(null)
        <div className={s.videoInfoContainer}>
 
             <div className={s.chanelImage}>
-            <Link href={`/profile/${data.author_url}`} className={s.hiddenText}>{data.author_name}</Link>
+            <Link href={`/profile/${data.authorUrl}`} className={s.hiddenText}>
+            {data.authorName}
+            </Link>
             </div>
 
-              <Link href={`/profile/${data.author_url}`} className={s.chanelNameLink}>
-              {data.author_name}
+              <Link href={`/profile/${data.authorUrl}`} className={s.chanelNameLink}>
+              {data.authorUrl}
               </Link>
             </div> 
     </div>

@@ -16,6 +16,10 @@ body{
 } */
 
 
+.profile_text{
+  font-size: 20px;
+}
+
 @media (max-width: 1200px) {
   .container{
     width: 900px;
