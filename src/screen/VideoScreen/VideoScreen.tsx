@@ -6,46 +6,20 @@ import { useEffect, useState } from 'react'
 
 
 type VideoScreenProps = {
-    videoId: string
+    data: VideoDto
 }
 
-export const VideoScreen = ({ videoId }: VideoScreenProps) => {
-const [isLoading, setIsLoading] = useState(true)
-const [data, setData] = useState<GetOneVideoDto['data'] | null>(null)
+export const VideoScreen = ({ data }: VideoScreenProps) => {
+ 
 
-  useEffect(() => {
-      (async () => {
-        try {
-          const dataFromServer = await fetch(`/api/videos?videoId=${videoId}`)
-  
-          const response = await dataFromServer.json() as GetOneVideoDto
-          console.log('response', response)
-          
-          if(response.data){
-            setData(response.data)
-          }
-        } catch (error) {
-          
-          console.error('Ошибка при загрузке видео:', error)
-        } finally {
-          setIsLoading(false)
-        }
-      })()
-
-    }, [videoId])
-
-    if (isLoading) {
-    return <div>загрузка...</div>
-  }
-
-  if(!data) return null
+  // if(!data) return null
 
   return (
     <div className={s.container}>
         <iframe className={s.iframe}
         width="550"
         height="300"
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+        src={`https://www.youtube.com/embed/${data.videoId}?autoplay=1`}
         title="YouTube video player"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

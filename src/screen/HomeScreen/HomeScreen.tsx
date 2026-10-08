@@ -19,14 +19,13 @@ export const HomeScreen = ({data}: HomeScreenProps) => {
   // if (isLoading) {
   //   return <div>загрузка...</div>
   // }
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormValues>()
 
-
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   formState: { errors },
+  // } = useForm<FormValues>()
 
   return (
     <div className={s.container}>

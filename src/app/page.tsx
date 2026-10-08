@@ -8,6 +8,7 @@ method: 'GET',
 })
  
 const response = await dataFromServer.json() as GetAllVideosDto
+
  return (
     <>
     <HomeScreen data={response.data}/>
