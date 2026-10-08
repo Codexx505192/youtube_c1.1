@@ -1,5 +1,5 @@
 // 'use client'
-import { AddVideoScreen } from "@/screen/AddVideoScreen";
+import { AddVideoScreen } from "@/screen/AddVideoScreen/ui/AddVideoScreen";
 import { Metadata } from "next";
 
 
