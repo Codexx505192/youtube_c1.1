@@ -45,14 +45,14 @@ const rawResult = await fetch(
       const videoInfo = await rawResult.json() as OEmbedVideoInfo
       // console.log('videoInfo', videoInfo)
 
-      const authoUrl = videoInfo.author_url.split('/').at(-1)
-      console.log('authoUrl', authoUrl)
+      const authorUrl = videoInfo.author_url.split('/').at(-1)
+      console.log('authorUrl', authorUrl)
 
       const result ={
       videoId, 
-      authoUrl,
+      authorUrl,
       title: videoInfo.title,
-      author_name: videoInfo.author_name,
+      authorName: videoInfo.author_name,
       }
 
       return  Response.json({ok: true, data: result})

@@ -11,7 +11,6 @@ type VideoScreenProps = {
 
 export const VideoScreen = ({ data }: VideoScreenProps) => {
  
-
   // if(!data) return null
 
   return (

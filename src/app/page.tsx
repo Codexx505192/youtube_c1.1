@@ -3,7 +3,7 @@ import { GetAllVideosDto } from "@/shared/types/typesFromBackend";
 
 export default async function Home() {
 try{
-const dataFromServer = await fetch('http://localhost:3000/api/videos', {
+const dataFromServer = await fetch(`http://localhost:3000/api/videos`, {
 method: 'GET',
 })
  
