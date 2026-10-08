@@ -16,7 +16,8 @@ type HomeScreenProps = {
 
 export const HomeScreen = ({data}: HomeScreenProps) => {
 
-
+ console.log('process.env.SERVER_API_URL', process.env.SERVER_API_URL)
+ console.log('NEXT_PUBLIC_TEST', process.env.NEXT_PUBLIC_TEST)
   return (
     <div className={s.container}>
       {data && data.length > 0 ? (

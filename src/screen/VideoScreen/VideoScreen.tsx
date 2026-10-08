@@ -16,7 +16,7 @@ export const VideoScreen = ({ data }: VideoScreenProps) => {
   return (
     <div className={s.container}>
         <iframe className={s.iframe}
-        width="550"
+        width="540"
         height="300"
         src={`https://www.youtube.com/embed/${data.videoId}?autoplay=1`}
         title="YouTube video player"

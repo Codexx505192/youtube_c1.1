@@ -15,7 +15,7 @@ const data = await params
 const videoId = data.videoId
 
 try{
-const dataFromServer = await fetch(`http://localhost:3000/api/videos?videoId=${videoId}`)
+const dataFromServer = await fetch(`${process.env.SERVER_API_URL}/api/videos?videoId=${videoId}`)
 const response = await dataFromServer.json() as GetOneVideoDto
 
 if(!response.data){
