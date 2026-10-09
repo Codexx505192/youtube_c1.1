@@ -2,6 +2,7 @@ import { HomeScreen } from "@/screen/HomeScreen";
 import { VIDEO_CATEGORIES } from "@/shared/constants/videoCategories";
 import { GetAllVideosDto, GetOneVideoDto } from "@/shared/types/typesFromBackend";
 import { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 
 type CategoryPageProps = {
 params: Promise<{categoryId: string}>
@@ -20,9 +21,7 @@ export async function generateMetadata(
  const foundCategory = VIDEO_CATEGORIES.find((category) => category.id === categoryId)
   
    if(!foundCategory){
-    return{
-      title: 'Видео  в неизвестной категории'
-    }
+    return {title: 'Категория не найдена'}
    }
 
   return {
@@ -34,6 +33,10 @@ export async function generateMetadata(
 export default async function CategoryPage({params}: CategoryPageProps){
 const data = await params
 const categoryId = data.categoryId
+
+const foundCategory = VIDEO_CATEGORIES.find((category) => category.id === categoryId)
+  
+if(!foundCategory) return notFound()
 
 try{
 const dataFromServer = await fetch(`${process.env.SERVER_API_URL}/api/videos?categoryId=${categoryId}`)
