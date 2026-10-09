@@ -30,7 +30,7 @@
 @media (max-width: 576px) {
     .container {
     grid-template-rows: 55px auto;
-    grid-template-columns: 139px auto;
+    grid-template-columns: 99px auto;
     display: grid;
     overflow: hidden;
 }
