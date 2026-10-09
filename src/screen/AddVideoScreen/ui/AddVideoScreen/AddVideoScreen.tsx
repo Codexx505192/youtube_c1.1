@@ -1,16 +1,19 @@
 'use client'
 import { useState } from 'react'
 import s from './AddVideoScreen.module.css'
-import { parseYoutube} from '@/shared/libs/url-parsers/youtubeParsers'
-// import { parseYoutube } from '../../shared/libs'
-import { useForm, SubmitHandler } from "react-hook-form"
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { isAllowedHost, YOUTUBE_DOMAINS } from '@/shared/libs/url-parsers/isAllowedHost'
 import useAddVideoForm from '../lib/useAddVideoForm'
+import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
+
 isAllowedHost
 
-
+//  const CATEGORIES = [
+//   {id: 'games', title:'Игры'},
+//   {id: 'news', title: 'Новости'},
+//   {id: 'fun', title: 'Юмор'},
+//   {id: 'science', title: 'Наука'},
+//   {id: 'sport', title: 'Спорт'}
+// ]
 
 export const AddVideoScreen = () => {
  const {
@@ -20,7 +23,8 @@ export const AddVideoScreen = () => {
   onSubmit,
  } = useAddVideoForm()
 
-      const hasVideoUrlInputError  = !!errors.videoUrl?.message
+    const hasVideoUrlInputError  = !!errors.videoUrl?.message
+     
 
     return(
         <section>
@@ -28,6 +32,12 @@ export const AddVideoScreen = () => {
                 <h1>AddVideoScreen</h1>
 
                  <form onSubmit={onSubmit} className={s.form}>
+                 <select {...register('videoCategory')}>
+                  {VIDEO_CATEGORIES.map((data) => (
+                  <option value={data.id} key={data.id}>{data.title}</option>
+                  ))}
+                 </select>
+
                  <label>
                     <input 
                     type="text" 

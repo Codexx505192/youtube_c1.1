@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import  Image from 'next/image'
-import Link from 'next/link'
 import s from './HomeScree.module.css'
+import Link from 'next/link'
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 
 interface FormValues {
@@ -12,16 +12,32 @@ interface FormValues {
 
 type HomeScreenProps = {
   data: GetAllVideosDto['data']
+  categories: GetAllVideosDto['categories']
 }
 
-export const HomeScreen = ({data}: HomeScreenProps) => {
+export const HomeScreen = ({data,categories}: HomeScreenProps) => {
 
  console.log('process.env.SERVER_API_URL', process.env.SERVER_API_URL)
  console.log('NEXT_PUBLIC_TEST', process.env.NEXT_PUBLIC_TEST)
  
   return (
     <div className={s.container}>
-      {data && data.length > 0 ? (
+      <div className={s.categoriesContainer}>
+     {categories.length > 0 && 
+      categories.map((category) => (
+       <Link 
+       key={category} 
+       href={`/${category}`} 
+       className={s.categoryLink}>
+        {category}
+        </Link>
+      ))
+     }
+      </div>
+
+    <div className={s.videoGrid}>
+
+      {data?.length > 0 ? (
         data.map((videoInfo) => (
           <div className={s.videoBlock} key={videoInfo.videoId}>
             <Link href={`/video/${videoInfo.videoId}`} className={s.videoPreview}>
@@ -59,6 +75,7 @@ export const HomeScreen = ({data}: HomeScreenProps) => {
       ) : (
         <div>нет видео</div>
       )}
+    </div>
     </div>
   )
 }

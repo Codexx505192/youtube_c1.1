@@ -26,19 +26,13 @@ export default function useAddVideoForm(){
             })
             return;
           }
-    
-        //   if(!isAllowedHost(parseUrl.host, YOUTUBE_DOMAINS)) {
-        //      ctx.addIssue({
-        //       code: 'custom',
-        //       message: 'Ссылка должна быть на Youtube',
-        //       input: url,
-        //     })
-        //   }
-      })
+      }),
+      videoCategory: z.string()
     });
     
     type Inputs = {
-      videoUrl: string
+      videoUrl: string,
+      videoCategory: string,
     }
 
      const {
@@ -57,7 +51,7 @@ export default function useAddVideoForm(){
                    setVideoId(videoId);
                    await fetch('/api/videos', {
                       method: 'POST',
-                      body: JSON.stringify({ videoId }),
+                      body: JSON.stringify({ videoId, categoryId: data.videoCategory}),
                     });
                   }
              

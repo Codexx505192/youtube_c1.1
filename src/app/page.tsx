@@ -1,4 +1,5 @@
 import { HomeScreen } from "@/screen/HomeScreen";
+import { VIDEO_CATEGORIES } from "@/shared/constants/videoCategories";
 import { GetAllVideosDto } from "@/shared/types/typesFromBackend";
 
 export default async function Home() {
@@ -8,10 +9,16 @@ method: 'GET',
 })
  
 const response = await dataFromServer.json() as GetAllVideosDto
+console.log('response', response)
+
+const finalCategories = VIDEO_CATEGORIES.filter(({id}) => (
+  response.categories.includes(id)
+))
+
 
  return (
     <>
-    <HomeScreen data={response.data}/>
+    <HomeScreen data={response.data} categories={response.categories}/>
     </>
   );
 }

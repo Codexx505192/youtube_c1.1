@@ -1,5 +1,6 @@
 export type VideoDto = {
     videoId: string
+    categoryId: string
     title: string
     authorName: string
     authorUrl: string
@@ -12,5 +13,6 @@ export type GetOneVideoDto = {
 
 export type GetAllVideosDto = {
     ok: boolean
-    data: VideoDto[]
+    data: VideoDto[];
+    categories: string[]
 }

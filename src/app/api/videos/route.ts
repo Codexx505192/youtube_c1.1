@@ -16,19 +16,23 @@ type OEmbedVideoInfo = {
   "html": string
 }
 
-const videosData = new Set<string>(
-    [
-         'vrR0x9cCliA',
-         'WSiXO0r4DtE',
-         'nQGEHG_GaCc',
-         '5pM-FSSzREc',
-         'DWsRGv0n6iY',
-         'DAjRlsPeilY',
-         'RS6A7eXSMUw',
-         '3nYtzOoghAY',
-         'dNsfGQDnyks',
-         'mq2u7ER0R3g',
-         'mq2u7ER0R3g',
+type videosDataContent  = {
+  id: string,
+  categoryId: string,
+}
+
+const videosData = new Map<string, videosDataContent>([
+         ['vrR0x9cCliA', { id: 'vrR0x9cCliA', categoryId: 'games'}],
+         ['WSiXO0r4DtE', {id: 'WSiXO0r4DtE', categoryId: 'news'}],
+         ['nQGEHG_GaCc', {id: 'nQGEHG_GaCc', categoryId: 'fun'}],
+         ['5pM-FSSzREc', {id: '5pM-FSSzREc', categoryId: 'science'}],
+         ['DWsRGv0n6iY', {id: 'DWsRGv0n6iY', categoryId: 'sport'}],
+         ['DAjRlsPeilY', {id: 'DAjRlsPeilY', categoryId: 'games'}],
+         ['RS6A7eXSMUw', {id: 'RS6A7eXSMUw', categoryId: 'games'}],
+         ['3nYtzOoghAY', {id: '3nYtzOoghAY', categoryId: 'games'}],
+         ['dNsfGQDnyks', {id: 'dNsfGQDnyks', categoryId: 'games'}],
+         ['mq2u7ER0R3g', {id: 'mq2u7ER0R3g', categoryId: 'games'}],
+         ['mq2u7ER0R3g', {id: 'mq2u7ER0R3g', categoryId: 'games'}],
     ]
 )
 
@@ -43,7 +47,6 @@ const rawResult = await fetch(
         `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
       )
       const videoInfo = await rawResult.json() as OEmbedVideoInfo
-      // console.log('videoInfo', videoInfo)
 
       const authorUrl = videoInfo.author_url.split('/').at(-1)
       console.log('authorUrl', authorUrl)
@@ -64,23 +67,34 @@ const rawResult = await fetch(
 }
 
 try{
-    const promises =  [...videosData].map(async(videoId) => {
+   const categories: string[] = []
+
+    const promises =  [...videosData].map(async(data) => {
+      const videoId =  data[1].id
+      const categoryId = data[1].categoryId
+    
       const rawResult = await fetch(
         `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
       )
       const videoInfo = await rawResult.json() as OEmbedVideoInfo
+      console.log('videoInfo', videoInfo)
       const authorUrl = videoInfo.author_url.split('/').at(-1)
+
+      if(!categories.includes(categoryId)){
+       categories.push(categoryId)
+      }
 
       return{
       videoId, 
       authorUrl,
+      categoryId: data[1].categoryId, 
       title: videoInfo.title,
       authorName: videoInfo.author_name,
     }
     })
 
     const result = await Promise.all(promises)
-    return Response.json({ok: true, data: result})
+    return Response.json({ok: true, data: result, categories})
   }
   catch(error){
     console.log(error)
@@ -90,13 +104,14 @@ try{
 
 export async function POST(request: Request) {
     const data = await request.json()
-    
+    console.log('data', data)
+
     if(videosData.has(data.videoId)) {
         return Response.json({ok: false, error: 'Видео ранее уже было добавлено'}, 
         {status: 400})
     }
 
-    videosData.add(data.videoId)
+    videosData.set(data.videoId, { id: data.videoId, categoryId: data.categoryId })
     console.log('videosData', videosData)
 
 
