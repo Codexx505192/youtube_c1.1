@@ -5,6 +5,7 @@ import  Image from 'next/image'
 import s from './HomeScree.module.css'
 import Link from 'next/link'
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
+import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
 
 interface FormValues {
   videoUrl: string
@@ -12,7 +13,7 @@ interface FormValues {
 
 type HomeScreenProps = {
   data: GetAllVideosDto['data']
-  categories: GetAllVideosDto['categories']
+  categories: typeof VIDEO_CATEGORIES
 }
 
 export const HomeScreen = ({data,categories}: HomeScreenProps) => {
@@ -26,10 +27,10 @@ export const HomeScreen = ({data,categories}: HomeScreenProps) => {
      {categories.length > 0 && 
       categories.map((category) => (
        <Link 
-       key={category} 
-       href={`/${category}`} 
+       key={category.id} 
+       href={`/${category.id}`} 
        className={s.categoryLink}>
-        {category}
+        {category.title}
         </Link>
       ))
      }

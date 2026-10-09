@@ -18,7 +18,7 @@ const finalCategories = VIDEO_CATEGORIES.filter(({id}) => (
 
  return (
     <>
-    <HomeScreen data={response.data} categories={response.categories}/>
+    <HomeScreen data={response.data} categories={finalCategories}/>
     </>
   );
 }
