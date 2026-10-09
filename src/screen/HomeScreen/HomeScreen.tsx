@@ -5,7 +5,7 @@ import  Image from 'next/image'
 import s from './HomeScree.module.css'
 import Link from 'next/link'
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
-import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
+import { DEFAULT_CATEGORY, VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
 
 interface FormValues {
   videoUrl: string
@@ -24,6 +24,11 @@ export const HomeScreen = ({data,categories}: HomeScreenProps) => {
   return (
     <div className={s.container}>
       <div className={s.categoriesContainer}>
+     <Link 
+     href="/" className={s.categoryLink}>
+      {DEFAULT_CATEGORY.title}
+     </Link>  
+
      {categories.length > 0 && 
       categories.map((category) => (
        <Link 

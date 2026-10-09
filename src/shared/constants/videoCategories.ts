@@ -1,3 +1,5 @@
+export const DEFAULT_CATEGORY = {id: 'all', title: 'Все видео'}
+
 export const VIDEO_CATEGORIES = [
   {id: 'games', title:'Игры'},
   {id: 'news', title: 'Новости'},

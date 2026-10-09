@@ -38,13 +38,14 @@ const videosData = new Map<string, videosDataContent>([
 
 export async function GET(request: Request) {
 const urlObject = new URL(request.url)
-const videoId = urlObject.searchParams.get('videoId')
-console.log('videoId', videoId)
+const videoIdParam = urlObject.searchParams.get('videoId')
+const categoryIdParam = urlObject.searchParams.get('categoryId')
 
-if(videoId){
+
+if(videoIdParam){
   try{
 const rawResult = await fetch(
-        `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
+        `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoIdParam}&format=json`
       )
       const videoInfo = await rawResult.json() as OEmbedVideoInfo
 
@@ -52,7 +53,7 @@ const rawResult = await fetch(
       console.log('authorUrl', authorUrl)
 
       const result ={
-      videoId, 
+      videoId: videoIdParam, 
       authorUrl,
       title: videoInfo.title,
       authorName: videoInfo.author_name,
@@ -67,9 +68,11 @@ const rawResult = await fetch(
 }
 
 try{
-   const categories: string[] = []
+   const categories = Array.from(new Set([...videosData].map((data) => data[1].categoryId)))
 
-    const promises =  [...videosData].map(async(data) => {
+    const promises =  [...videosData]
+     .filter((data) => categoryIdParam ? data[1].categoryId === categoryIdParam: true)
+     .map(async(data) => {
       const videoId =  data[1].id
       const categoryId = data[1].categoryId
     
@@ -79,10 +82,6 @@ try{
       const videoInfo = await rawResult.json() as OEmbedVideoInfo
       console.log('videoInfo', videoInfo)
       const authorUrl = videoInfo.author_url.split('/').at(-1)
-
-      if(!categories.includes(categoryId)){
-       categories.push(categoryId)
-      }
 
       return{
       videoId, 
@@ -94,7 +93,11 @@ try{
     })
 
     const result = await Promise.all(promises)
-    return Response.json({ok: true, data: result, categories})
+    return Response.json({
+      ok: true, 
+      data: result, 
+      categories
+    })
   }
   catch(error){
     console.log(error)
