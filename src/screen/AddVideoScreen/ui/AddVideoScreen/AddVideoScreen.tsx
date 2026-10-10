@@ -1,31 +1,20 @@
 'use client'
 import { useState } from 'react'
 import s from './AddVideoScreen.module.css'
-import { isAllowedHost, YOUTUBE_DOMAINS } from '@/shared/libs/url-parsers/isAllowedHost'
-import useAddVideoForm from '../lib/useAddVideoForm'
 import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
-
-isAllowedHost
-
-//  const CATEGORIES = [
-//   {id: 'games', title:'Игры'},
-//   {id: 'news', title: 'Новости'},
-//   {id: 'fun', title: 'Юмор'},
-//   {id: 'science', title: 'Наука'},
-//   {id: 'sport', title: 'Спорт'}
-// ]
+import { register } from 'module'
+import useAddVideoForm from '../../lib/useAddVideoForm'
 
 export const AddVideoScreen = () => {
- const {
-  errors,
+const {
   videoId,
+  errors,
   register,
   onSubmit,
- } = useAddVideoForm()
+} = useAddVideoForm()
 
-    const hasVideoUrlInputError  = !!errors.videoUrl?.message
-     
-
+const hasVideoUrlInputError = !!errors.videoUrl?.message
+   
     return(
         <section>
             <div className={s.container}>

@@ -1,13 +1,12 @@
 // 'use client'
-import { AddVideoScreen } from "@/screen/AddVideoScreen/ui/AddVideoScreen";
+// import { AddVideoScreen } from "@/screen/AddVideoScreen/AddVideoScreen";
+import { AddVideoScreen} from "@/screen/AddVideoScreen/ui/AddVideoScreen";
 import { Metadata } from "next";
 
 
 export const metadata: Metadata  = {
   title: "Добавить видео",
 };
-
-// https://www.youtube.com/watch?v=YqonofhqhTU
 
 export default  function AddVideoPage(){
     return(

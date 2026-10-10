@@ -34,7 +34,9 @@ export default function LeftMenu(){
                 aria-hidden="true"
                 className={s.icon}
                 />
-                <Link href="/profile/123" className={s.lnk}>Профиль</Link>
+                <Link href="/profile/123" className={s.lnk}>
+                Профиль
+                </Link>
                </li>
 
                <div className={s.line}></div>
@@ -49,7 +51,9 @@ export default function LeftMenu(){
                 aria-hidden="true"
                 className={s.icon}
                 />
-                <Link href="/editor/addVideo" className={s.lnk}>Добавить видео</Link>
+                <Link href="/editor/addVideo" className={s.lnk}>
+                Добавить видео
+                </Link>
                </li>
 
                <li className={s.list_itm}>
@@ -62,7 +66,9 @@ export default function LeftMenu(){
                 aria-hidden="true"
                 className={s.icon}
                 />
-                <Link href="/profile/123" className={s.lnk}>Профиль</Link>
+                <Link href="/myVideos" className={s.lnk}>
+                ваши видео
+                </Link>
                </li>
             </ul>
          </nav>

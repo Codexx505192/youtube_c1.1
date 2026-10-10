@@ -19,20 +19,21 @@ type OEmbedVideoInfo = {
 type videosDataContent  = {
   id: string,
   categoryId: string,
+  userId: string
 }
 
 const videosData = new Map<string, videosDataContent>([
-         ['vrR0x9cCliA', { id: 'vrR0x9cCliA', categoryId: 'games'}],
-         ['WSiXO0r4DtE', {id: 'WSiXO0r4DtE', categoryId: 'news'}],
-         ['nQGEHG_GaCc', {id: 'nQGEHG_GaCc', categoryId: 'fun'}],
-         ['5pM-FSSzREc', {id: '5pM-FSSzREc', categoryId: 'science'}],
-         ['DWsRGv0n6iY', {id: 'DWsRGv0n6iY', categoryId: 'sport'}],
-         ['DAjRlsPeilY', {id: 'DAjRlsPeilY', categoryId: 'games'}],
-         ['RS6A7eXSMUw', {id: 'RS6A7eXSMUw', categoryId: 'games'}],
-         ['3nYtzOoghAY', {id: '3nYtzOoghAY', categoryId: 'games'}],
-         ['dNsfGQDnyks', {id: 'dNsfGQDnyks', categoryId: 'games'}],
-         ['mq2u7ER0R3g', {id: 'mq2u7ER0R3g', categoryId: 'games'}],
-         ['mq2u7ER0R3g', {id: 'mq2u7ER0R3g', categoryId: 'games'}],
+         ['vrR0x9cCliA', { userId: '0',id: 'vrR0x9cCliA', categoryId: 'games'}],
+         ['WSiXO0r4DtE', { userId: '0',id: 'WSiXO0r4DtE', categoryId: 'news'}],
+         ['nQGEHG_GaCc', { userId: '0',id: 'nQGEHG_GaCc', categoryId: 'fun'}],
+         ['5pM-FSSzREc', { userId: '0',id: '5pM-FSSzREc', categoryId: 'science'}],
+         ['DWsRGv0n6iY', { userId: '0',id: 'DWsRGv0n6iY', categoryId: 'sport'}],
+         ['DAjRlsPeilY', { userId: '0',id: 'DAjRlsPeilY', categoryId: 'games'}],
+         ['RS6A7eXSMUw', { userId: '0',id: 'RS6A7eXSMUw', categoryId: 'games'}],
+         ['3nYtzOoghAY', { userId: '0',id: '3nYtzOoghAY', categoryId: 'games'}],
+         ['dNsfGQDnyks', { userId: '0',id: 'dNsfGQDnyks', categoryId: 'games'}],
+         ['mq2u7ER0R3g', { userId: '0',id: 'mq2u7ER0R3g', categoryId: 'games'}],
+         ['mq2u7ER0R3g', { userId: '0',id: 'mq2u7ER0R3g', categoryId: 'games'}],
     ]
 )
 
@@ -114,10 +115,12 @@ export async function POST(request: Request) {
         {status: 400})
     }
 
-    videosData.set(data.videoId, { id: data.videoId, categoryId: data.categoryId })
-    console.log('videosData', videosData)
-
-
+    videosData.set(data.videoId, {
+      userId: data.userId, 
+      id: data.videoId, 
+      categoryId: data.categoryId 
+    })
+    
     return Response.json({ok: true})
 }
 

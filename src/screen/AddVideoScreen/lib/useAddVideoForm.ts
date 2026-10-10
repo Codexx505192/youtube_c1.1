@@ -49,9 +49,10 @@ export default function useAddVideoForm(){
                     
                   if(!videoId) return
                    setVideoId(videoId);
+                  //  TODO:
                    await fetch('/api/videos', {
                       method: 'POST',
-                      body: JSON.stringify({ videoId, categoryId: data.videoCategory}),
+                      body: JSON.stringify({ userId: '1234', videoId, categoryId: data.videoCategory}),
                     });
                   }
              
