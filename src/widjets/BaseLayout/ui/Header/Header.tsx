@@ -26,15 +26,19 @@ export default function Header({profileId}: HeaderProps){
            </div>
 
             <div className={s.header_left}>
-                <Link href={`/editor/addVideo`} className={s.createVideoLink}>
+              <Link href="/auth/login" className={s.createVideoLink}>
+                    Войти
+                </Link>
+
+                {/* <Link href={`/editor/addVideo`} className={s.createVideoLink}>
                     Создать
                 </Link>
                 
                 <Link href={`/profile/${profileId}`} className={s.yourProfileLink}>
                     <div className={s.hiddenText}>
                         Перейти в свой профиль
-                        </div>
-                </Link>
+                    </div>
+                </Link> */}
             </div>
 
             
