@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 import { DEFAULT_CATEGORY, VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
 import { VideosList } from '@/widjets/VideosList'
+import cn from 'classnames'
 
 interface FormValues {
   videoUrl: string
@@ -14,10 +15,11 @@ interface FormValues {
 
 type HomeScreenProps = {
   data: GetAllVideosDto['data']
-  categories: typeof VIDEO_CATEGORIES
+  categoryId: string,
+  categories: typeof VIDEO_CATEGORIES,
 }
 
-export const HomeScreen = ({data,categories}: HomeScreenProps) => {
+export const HomeScreen = ({data, categoryId,categories}: HomeScreenProps) => {
 
  console.log('process.env.SERVER_API_URL', process.env.SERVER_API_URL)
  console.log('NEXT_PUBLIC_TEST', process.env.NEXT_PUBLIC_TEST)
@@ -26,7 +28,10 @@ export const HomeScreen = ({data,categories}: HomeScreenProps) => {
     <div className={s.container}>
       <div className={s.categoriesContainer}>
      <Link 
-     href="/" className={s.categoryLink}>
+     href="/" 
+      className={cn(s.categoryLink, {
+        [s.activeCategoryLink]: !categoryId,
+       })}>
       {DEFAULT_CATEGORY.title}
      </Link>  
 
@@ -35,7 +40,10 @@ export const HomeScreen = ({data,categories}: HomeScreenProps) => {
        <Link 
        key={category.id} 
        href={`/${category.id}`} 
-       className={s.categoryLink}>
+       className={cn(s.categoryLink, {
+        [s.activeCategoryLink]: category.id === categoryId,
+       })}
+       >
         {category.title}
         </Link>
       ))

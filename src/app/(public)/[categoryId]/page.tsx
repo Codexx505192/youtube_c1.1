@@ -53,7 +53,11 @@ const finalCategories = VIDEO_CATEGORIES.filter(({id}) => (
 ))
 
  return(
-        <HomeScreen data={response.data} categories={finalCategories}/>
+        <HomeScreen 
+        data={response.data} 
+        categoryId={categoryId} 
+        categories={finalCategories}
+        />
     )
 }
 catch (error){

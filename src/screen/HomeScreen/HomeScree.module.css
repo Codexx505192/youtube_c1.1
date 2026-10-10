@@ -19,6 +19,19 @@
     border-radius: 12px;
     color: #fff;
     padding: 8px 16px;
+    transition: background-color .3s ease, color .3s ease;
+
+    &:hover{
+        background-color: white;
+        color: black;
+    }
+}
+
+
+.activeCategoryLink {
+    background-color: white;
+    color: black;
+    pointer-events: none;
 }
 
 .vodeoImg{
