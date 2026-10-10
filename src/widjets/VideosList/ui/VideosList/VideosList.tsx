@@ -1,23 +1,21 @@
+import Link from 'next/link'
+import s from './VideosList.module.css'
+import React from 'react'
+import Image from 'next/image'
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
-import s from './MyVideosScreen.module.css'
-import { VideosList } from '@/widjets/VideosList'
 
-type MyVideosScreenProps = {
-  data: GetAllVideosDto['data']
+type VideosListProps = {
+ data: GetAllVideosDto['data']
 }
 
-export const  MyVideosScreen = ({data}: MyVideosScreenProps)=> {
-console.log('data', data)
+export const  VideosList = ({data}: VideosListProps) => {
+if(data?.length <= 0){
+  return <div className={s.noVideos}>Нет видео</div>
+}
 
-    return(
-        <div className={s.container}>
-        <VideosList data={data}/>
-        {/* <div className={s.container}>
-        
-    <div className={s.videoGrid}>
-
-      {data?.length > 0 ? (
-        data.map((videoInfo) => (
+  return (
+     <div className={s.videoGrid}>
+      {data.map((videoInfo) => (
           <div className={s.videoBlock} key={videoInfo.videoId}>
             <Link href={`/video/${videoInfo.videoId}`} className={s.videoPreview}>
             <Image 
@@ -50,12 +48,7 @@ console.log('data', data)
             </div> 
             <Link href={`/video/${videoInfo.videoId}`} className={s.link}/> 
           </div>
-        ))
-      ) : (
-        <div>нет видео</div>
-      )}
+        ))}
     </div>
-        </div> */}
-        </div>
-    )
+  )
 }

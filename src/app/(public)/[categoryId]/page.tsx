@@ -30,6 +30,7 @@ export async function generateMetadata(
 }
 
 
+
 export default async function CategoryPage({params}: CategoryPageProps){
 const data = await params
 const categoryId = data.categoryId

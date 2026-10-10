@@ -6,6 +6,7 @@ import s from './HomeScree.module.css'
 import Link from 'next/link'
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 import { DEFAULT_CATEGORY, VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
+import { VideosList } from '@/widjets/VideosList'
 
 interface FormValues {
   videoUrl: string
@@ -41,7 +42,7 @@ export const HomeScreen = ({data,categories}: HomeScreenProps) => {
      }
       </div>
 
-    <div className={s.videoGrid}>
+    {/* <div className={s.videoGrid}>
 
       {data?.length > 0 ? (
         data.map((videoInfo) => (
@@ -81,7 +82,9 @@ export const HomeScreen = ({data,categories}: HomeScreenProps) => {
       ) : (
         <div>нет видео</div>
       )}
-    </div>
+    </div> */}
+
+    <VideosList data={data} />
     </div>
   )
 }
