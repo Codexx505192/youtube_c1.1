@@ -21,7 +21,7 @@ const hasVideoUrlInputError = !!errors.videoUrl?.message
                 <h1>AddVideoScreen</h1>
 
                  <form onSubmit={onSubmit} className={s.form}>
-                 <select {...register('videoCategory')}>
+                 <select {...register('videoCategory')} className={s.select}>
                   {VIDEO_CATEGORIES.map((data) => (
                   <option value={data.id} key={data.id}>{data.title}</option>
                   ))}
